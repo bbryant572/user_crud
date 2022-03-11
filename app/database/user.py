@@ -52,3 +52,9 @@ def select_by_id(pk):
 
 
 def deactivate_user(pk):
+    cursor = get_db()
+    cursor.execute(
+        "DELETE FROM user WHERE id=?", (pk,))
+    results = cursor.fetchall()
+    cursor.close()
+    return output_formatter(results)
