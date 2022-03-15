@@ -16,9 +16,9 @@ def output_formatter(results):
 
 def insert(user_dict):
     value_tuple = (
-        user.dict["first_name"],
-        user.dict["last_name"],
-        user.dict["hobbies"],
+        user_dict["first_name"],
+        user_dict["last_name"],
+        user_dict["hobbies"],
     )
 
     stmt = """
@@ -29,7 +29,7 @@ def insert(user_dict):
         )   VALUES (?, ?, ?)
     """
     cursor = get_db()
-    last_row_id = cursor.execute(query, value_tuple)
+    cursor.execute(stmt, value_tuple)
     cursor.commit()
     cursor.close()
 
@@ -43,8 +43,7 @@ def scan():
 
 
 def select_by_id(pk):
-    cursor = get_db()
-    cursor.execute(
+    cursor = get_db().execute(
         "SELECT * FROM user WHERE id=?", (pk, ))
     results = cursor.fetchall()
     cursor.close()
@@ -52,9 +51,31 @@ def select_by_id(pk):
 
 
 def deactivate_user(pk):
+    stmt = """
+        UPDATE user
+        SET active=0
+        WHERE id=?
+    """
     cursor = get_db()
-    cursor.execute(
-        "DELETE FROM user WHERE id=?", (pk,))
-    results = cursor.fetchall()
+    cursor.execute(stmt, (pk,))
+    cursor.commit()
     cursor.close()
-    return output_formatter(results)
+
+
+def update(pk, user_data):
+    value_tuple = (
+        user_data["first_name"],
+        user_data["last_name"],
+        user_data["hobbies"],
+        pk
+    )
+    stmt = """
+        UPDATE user
+        SET first_name=?,
+        last_name=?,
+        hobbies=?
+        WHERE id=?
+    """
+    cursor = get_db()
+    cursor.execute(stmt, value_tuple)
+    cursor.commit()
