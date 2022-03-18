@@ -128,6 +128,6 @@ def get_users_and_vehicles_report():
     resp = {
         "status": "ok",
         "message": "success",
-        "report_date": output
+        "report_data": output
     }
     return resp

@@ -11,6 +11,7 @@ CREATE TABLE vehicle (
     make VARCHAR(45) NOT NULL,
     model VARCHAR(45) NOT NULL,
     color VARCHAR(45),
+    license_plate VARCHAR(45) NOT NULL,
     v_type INTEGER NOT NULL,
     user_id INTEGER NOT NULL,
     active BOOLEAN DEFAULT 1,
@@ -62,12 +63,14 @@ INSERT INTO vehicle (
     make,
     model,
     color,
+    license_plate,
     v_type,
     user_id
 ) VALUES (
     "Ford",
     "F250",
     "Gun Metal",
+    "HELLO1",
     3,
     1
 );
@@ -76,12 +79,14 @@ INSERT INTO vehicle (
     make,
     model,
     color,
+    license_plate,
     v_type,
     user_id
 ) VALUES (
     "Chevy",
     "Silverado",
     "Blue",
+    "HELLO2",
     4,
     2
 );
@@ -90,12 +95,14 @@ INSERT INTO vehicle (
     make,
     model,
     color,
+    license_plate,
     v_type,
     user_id
 ) VALUES (
     "Yamaha",
     "Sport",
     "Black",
+    "HELLO3",
     1,
     3
 );
@@ -104,12 +111,14 @@ INSERT INTO vehicle (
     make,
     model,
     color,
+    license_plate,
     v_type,
     user_id
 ) VALUES (
     "Toyota",
     "Camry",
     "Red",
+    "HELLO4",
     2,
     4
 );
@@ -119,11 +128,13 @@ INSERT INTO vehicle (
     model,
     color,
     v_type,
+    license_plate,
     user_id
 ) VALUES (
     "Toyota",
     "Tacoma",
     "Forest Green",
+    "HELLO1",
     3,
     1
 );
@@ -133,6 +144,7 @@ SELECT  user.last_name,
         user.hobbies,
         user.active,
         vehicle.color,
+        vehicle.license_plate,
         vehicle.v_type AS vehicle_type
 FROM user INNER JOIN vehicle 
 ON user.id = vehicle.user_id;
@@ -142,6 +154,7 @@ SELECT  user.last_name,
         user.hobbies,
         user.active,
         vehicle.color,
+        vehicle.license_plate,
         vehicle_type.description
 FROM user 
 INNER JOIN vehicle ON user.id = vehicle.user_id
